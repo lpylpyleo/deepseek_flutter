@@ -1,6 +1,6 @@
 # deepseek_flutter
 
-[![Android Build](https://github.com/CalsRanna/deepseek_flutter/actions/workflows/android.yml/badge.svg)](https://github.com/CalsRanna/deepseek_flutter/actions/workflows/android.yml)
+[![Android Build](https://github.com/lpylpyleo/deepseek_flutter/actions/workflows/android.yml/badge.svg)](https://github.com/lpylpyleo/deepseek_flutter/actions/workflows/android.yml)
 ![Flutter Version](https://img.shields.io/badge/Flutter-stable-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 
