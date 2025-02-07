@@ -2,17 +2,19 @@
 
 AI应用练习项目
 
-[x] deepseek-v3
+## 截图
 
-[x] 流式传输
+![Screenshot](doc/Screenshot.png)
 
-[x] 标题生成
+- [x] deepseek-v3
+- [x] 流式传输
+- [x] 标题生成
+- [ ] deepseek-r1
+- [x] 密钥配置
+- [ ] 会话保存
+- [ ] LaTex公式优化
 
-[] deepseek-r1
 
-[x] 密钥配置
-
-[] 会话保存
-
-[] LaTex公式优化
-
+## issues
+- LaTex公式显示溢出问题
+- OpenAI API包在解析响应时出现错误

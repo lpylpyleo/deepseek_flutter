@@ -7,7 +7,8 @@ class MessageWidget extends StatelessWidget {
   final ChatCompletionMessage message;
   final bool isLoading;
 
-  const MessageWidget({super.key, required this.message, required this.isLoading});
+  const MessageWidget(
+      {super.key, required this.message, required this.isLoading});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +73,7 @@ class MessageWidget extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       const Text(
-                        'Responding...',
+                        '回答中...',
                         style: TextStyle(fontSize: 14),
                       ),
                     ],
@@ -87,4 +88,4 @@ class MessageWidget extends StatelessWidget {
       ),
     );
   }
-} 
+}
