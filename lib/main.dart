@@ -16,11 +16,6 @@ void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
-final apiKeyProvider = StateProvider<String?>((ref) {
-  final box = Hive.box('settings');
-  return box.get('apiKey');
-});
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -123,7 +118,7 @@ class ChatPage extends HookConsumerWidget {
             ));
       }
       return null;
-    }, []);
+    }, [apiKey]);
 
     if (apiKey == null) {
       return const Scaffold(
