@@ -61,7 +61,7 @@ class MessageWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            isLoading
+            isLoading && content.isEmpty
                 ? Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [

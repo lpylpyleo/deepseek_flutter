@@ -50,9 +50,7 @@ class ChatPage extends HookConsumerWidget {
         );
 
         messages.value = [...messages.value, userMessage];
-
         textController.clear();
-
         responding.value = true;
 
         try {
@@ -86,7 +84,7 @@ class ChatPage extends HookConsumerWidget {
           responding.value = false;
         }
       },
-      [messages.value, responding.value],
+      [messages.value],
     );
 
     useEffect(() {
@@ -96,7 +94,7 @@ class ChatPage extends HookConsumerWidget {
             content: '请根据用户的问题生成一个没有标点的简短标题，不超过8个字。');
         final res = await ref.watch(clientProvider).createChatCompletion(
               request: CreateChatCompletionRequest(
-                model: ChatCompletionModel.modelId('deepseek-chat'),
+                model: ChatCompletionModel.modelId(LlmModel.v3.modelId),
                 messages: [msg, ...messages.value],
                 maxTokens: 20,
               ),

@@ -2,10 +2,6 @@
 
 AI应用练习项目
 
-## 截图
-
-![Screenshot](doc/Screenshot.png)
-
 - [x] deepseek-v3
 - [x] 流式传输
 - [x] 标题生成
@@ -13,6 +9,10 @@ AI应用练习项目
 - [x] 密钥配置
 - [ ] 会话保存
 - [ ] LaTex公式优化
+
+## 截图
+
+![Screenshot](doc/Screenshot.png)
 
 
 ## issues
