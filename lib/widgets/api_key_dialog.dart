@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../providers/client.dart';
+import '../utils.dart';
 
 class ApiKeyDialog extends HookConsumerWidget {
   const ApiKeyDialog({super.key});
@@ -13,41 +14,45 @@ class ApiKeyDialog extends HookConsumerWidget {
     final controller = useTextEditingController();
     final mounted = context.mounted;
 
-    return AlertDialog(
+    return SimpleDialog(
       title: const Text('设置 API Key'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          TextField(
-            controller: controller,
-            decoration: const InputDecoration(
-              hintText: '在此输入 API Key',
-            ),
-          ),
-          const SizedBox(height: 16),
-          InkWell(
-            onTap: () async {
-              final url = Uri.parse('https://platform.deepseek.com');
-              await launchUrl(url);
-            },
-            child: const Text(
-              '没有 API Key? 点击这里注册 →',
-              style: TextStyle(
-                color: Colors.lightBlue,
+      insetPadding: const EdgeInsets.symmetric(horizontal: 40, vertical: 24),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      children: [
+        SizedBox(
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextField(
+                controller: controller,
+                decoration: const InputDecoration(
+                  hintText: '在此输入 API Key',
+                ),
               ),
-            ),
+              const SizedBox(height: 16),
+              InkWell(
+                onTap: () async {
+                  final url = Uri.parse('https://platform.deepseek.com');
+                  await launchUrl(url);
+                },
+                child: const Text(
+                  '没有 API Key? 点击这里注册 →',
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      actions: [
-        TextButton(
+        ),
+        const SizedBox(height: 16),
+        ElevatedButton(
           onPressed: () async {
             if (controller.text.isEmpty) {
               if (!mounted) return;
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('API Key 不能为空')),
-              );
+              showSnackBar(context, 'API Key 不能为空');
               return;
             }
 

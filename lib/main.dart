@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:openai_dart/openai_dart.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'utils.dart';
+import 'widgets/highlight_button.dart';
 import 'widgets/message_widget.dart';
 import 'widgets/api_key_dialog.dart';
 import 'widgets/app_drawer.dart';
@@ -78,9 +80,7 @@ class ChatPage extends HookConsumerWidget {
           }
           firstAnswerFinished.value = true;
         } catch (e) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('发生错误: ${e.toString()}')),
-          );
+          showSnackBar(context, '发生错误: ${e.toString()}');
           print(e);
         } finally {
           responding.value = false;
@@ -172,31 +172,57 @@ class ChatPage extends HookConsumerWidget {
                   responding.value = false;
                   firstAnswerFinished.value = false;
                 },
+                elevation: 1,
+                highlightElevation: 2,
                 icon: const Icon(Icons.delete_outline),
                 label: const Text('清空对话'),
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  spacing: 16,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: TextField(
-                        onSubmitted: (_) {
-                          if (!responding.value) {
-                            sendMessage();
-                          }
-                        },
-                        controller: textController,
-                        decoration: const InputDecoration(
-                          hintText: '输入你的消息',
-                          border: OutlineInputBorder(),
+                    Row(
+                      spacing: 16,
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            onSubmitted: (_) {
+                              if (!responding.value) {
+                                sendMessage();
+                              }
+                            },
+                            controller: textController,
+                            decoration: InputDecoration(
+                              hintText: '输入你的消息',
+                              contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 4,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                        ElevatedButton(
+                          onPressed:
+                              responding.value ? null : () => sendMessage(),
+                          child: const Text('发送'),
+                        ),
+                      ],
                     ),
-                    ElevatedButton(
-                      onPressed: responding.value ? null : () => sendMessage(),
-                      child: const Text('发送'),
+                    const SizedBox(height: 16),
+                    HighlightButton(
+                      icon: Icons.model_training,
+                      label: 'DeepSeek R1',
+                      isSelected: ref.watch(llmModelProvider) == LlmModel.r1,
+                      onPressed: () {
+                        ref.read(llmModelProvider.notifier).state =
+                            ref.read(llmModelProvider) == LlmModel.r1
+                                ? LlmModel.v3
+                                : LlmModel.r1;
+                      },
                     ),
                   ],
                 ),
