@@ -121,9 +121,16 @@ class ChatPage extends HookConsumerWidget {
     }, [apiKey]);
 
     if (apiKey == null) {
-      return const Scaffold(
+      return Scaffold(
         body: Center(
-          child: CircularProgressIndicator(),
+          child: TextButton(
+            onPressed: () => showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (_) => const ApiKeyDialog(),
+            ),
+            child: const Text('设置 API Key'),
+          ),
         ),
       );
     }

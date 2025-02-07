@@ -39,16 +39,9 @@ class AppDrawer extends HookWidget {
                   leading: const Icon(Icons.code),
                   title: const Text('查看源代码'),
                   onTap: () async {
-                    final url = Uri.parse('https://github.com/lpylpyleo/deepseek_flutter');
-                    if (await canLaunchUrl(url)) {
-                      await launchUrl(url);
-                    } else {
-                      if (context.mounted) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('无法打开链接')),
-                        );
-                      }
-                    }
+                    final url = Uri.parse(
+                        'https://github.com/lpylpyleo/deepseek_flutter');
+                    await launchUrl(url);
                   },
                 ),
               ],
@@ -65,4 +58,4 @@ class AppDrawer extends HookWidget {
       ),
     );
   }
-} 
+}

@@ -29,14 +29,7 @@ class ApiKeyDialog extends HookConsumerWidget {
           InkWell(
             onTap: () async {
               final url = Uri.parse('https://platform.deepseek.com');
-              if (await canLaunchUrl(url)) {
-                await launchUrl(url);
-              } else {
-                if (!mounted) return;
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('无法打开链接')),
-                );
-              }
+              await launchUrl(url);
             },
             child: const Text(
               '没有 API Key? 点击这里注册 →',
