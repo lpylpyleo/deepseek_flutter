@@ -30,6 +30,15 @@ jobs:
           # 更新版本号和构建号
           sed -i "s/^version: .*/version: ${{ steps.version.outputs.VERSION }}+${NEW_BUILD}/" pubspec.yaml
           
+          # 配置 Git
+          git config --global user.name 'GitHub Actions'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # 提交更改
+          git add pubspec.yaml
+          git commit -m "chore: bump build number to ${NEW_BUILD} [skip ci]"
+          git push
+      
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
