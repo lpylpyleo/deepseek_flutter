@@ -37,7 +37,7 @@ jobs:
           # 提交更改
           git add pubspec.yaml
           git commit -m "chore: bump build number to ${NEW_BUILD} [skip ci]"
-          git push
+          git push origin HEAD:main
       
       - name: Setup Java
         uses: actions/setup-java@v3
