@@ -12,7 +12,22 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
+      - name: Get version from tag
+        if: startsWith(github.ref, 'refs/tags/')
+        id: version
+        run: |
+          VERSION=${GITHUB_REF#refs/tags/v}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update pubspec version
+        if: startsWith(github.ref, 'refs/tags/')
+        run: |
+          # 获取当前构建号
+          CURRENT_BUILD=$(grep "version:" pubspec.yaml | sed -E 's/.*\+([0-9]+)/\1/')
+          # 新构建号 = 当前构建号 + 1
+          NEW_BUILD=$((CURRENT_BUILD + 1))
+          # 更新版本号和构建号
+          sed -i "s/^version: .*/version: ${{ steps.version.outputs.VERSION }}+${NEW_BUILD}/" pubspec.yaml
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
