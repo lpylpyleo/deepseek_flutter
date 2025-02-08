@@ -32,7 +32,7 @@ class HighlightButton extends StatelessWidget {
               width: 1.5,
             ),
             color: isSelected
-                ? theme.primaryColor.withOpacity(0.1)
+                ? theme.primaryColor.withValues(alpha: 0.3)
                 : Colors.transparent,
           ),
           child: Row(

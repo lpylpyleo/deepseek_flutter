@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../providers/client.dart';
+import '../singletons/widget.dart';
 import '../utils.dart';
 
 class ApiKeyDialog extends HookConsumerWidget {
@@ -60,7 +61,7 @@ class ApiKeyDialog extends HookConsumerWidget {
             await box.put('apiKey', controller.text);
             if (!mounted) return;
             ref.read(apiKeyProvider.notifier).state = controller.text;
-            Navigator.of(context).pop();
+            navigatorKey.currentState?.pop();
           },
           child: const Text('确定'),
         ),
